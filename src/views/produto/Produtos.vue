@@ -4,7 +4,7 @@
       <i class="fas fa-box-open mr-1"></i>
       <span>Produtos</span>
     </template>
-    <Spinner :loader="loader"/>
+    <Spinner :loader="loader" />
     <div v-if="!loader">
       <b-row>
         <b-col md="12" sm="12" class="mb-3">
@@ -22,27 +22,21 @@
         </b-col>
       </b-row>
 
-      <b-table class="table-sm" :responsive="true" :fields="fields" hover striped :items="pageProdutos.content">
-        <template slot="actions" slot-scope="data">
-          <b-button size="sm" variant="warning" class="mr-2" v-b-tooltip.hover title="Alterar">
-            <i class="fas fa-pencil-alt"></i>
-          </b-button>
-          <b-button size="sm" variant="danger" class="mr-2" v-b-tooltip.hover title="Apagar">
-            <i class="fas fa-trash"></i>
-          </b-button>
-        </template>
-      </b-table>
+      <b-row>
+        <CardProduto v-for="produto in pageProdutos.content" :key="produto.id" :produto="produto" />
+      </b-row>
       <b-pagination size="sm" :total-rows="50" :per-page="10"></b-pagination>
     </div>
   </b-card>
 </template>
 
 <script>
-import Produto from '../../services/produto';
-import Spinner from '../../components/shared/Spinner';
+import Produto from "../../services/produto";
+import Spinner from "../../components/shared/Spinner";
+import CardProduto from "./CardProduto";
 export default {
   name: "Produtos",
-  components: {Spinner},
+  components: { Spinner, CardProduto },
   data() {
     return {
       fields: [
@@ -56,18 +50,18 @@ export default {
       loader: false
     };
   },
-  mounted(){
+  mounted() {
     this.getProdutos();
   },
   methods: {
-    async getProdutos(){
+    async getProdutos() {
       this.loader = true;
-      try{
+      try {
         const res = await Produto.getProdutos();
         this.pageProdutos = res.data;
-      }catch(err){
+      } catch (err) {
         console.log(err);
-      }finally{
+      } finally {
         this.loader = false;
       }
     }
