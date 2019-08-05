@@ -23,7 +23,7 @@
       </b-row>
 
       <b-row>
-        <CardProduto v-for="produto in pageProdutos.content" :key="produto.id" :produto="produto" />
+        <CardProduto v-for="produto in list" :key="produto.id" :produto="produto" />
       </b-row>
       <b-pagination size="sm" :total-rows="50" :per-page="10"></b-pagination>
     </div>
@@ -46,12 +46,22 @@ export default {
         { key: "qntEstoque", label: "Qtd.", sortable: true },
         { key: "actions", label: "Ações" }
       ],
+      list: [
+        {id: 1, nome: 'Produto1', preco: '5.00', qtnEstoque: 1},
+        {id: 1, nome: 'Produto1', preco: '5.00', qtnEstoque: 1},
+        {id: 1, nome: 'Produto1', preco: '5.00', qtnEstoque: 1},
+        {id: 1, nome: 'Produto1', preco: '5.00', qtnEstoque: 1},
+        {id: 1, nome: 'Produto1', preco: '5.00', qtnEstoque: 1},
+        {id: 1, nome: 'Produto1', preco: '5.00', qtnEstoque: 1},
+        {id: 1, nome: 'Produto1', preco: '5.00', qtnEstoque: 1},
+        {id: 1, nome: 'Produto1', preco: '5.00', qtnEstoque: 1},
+      ],
       pageProdutos: {},
       loader: false
     };
   },
   mounted() {
-    this.getProdutos();
+    // this.getProdutos();
   },
   methods: {
     async getProdutos() {
@@ -59,6 +69,7 @@ export default {
       try {
         const res = await Produto.getProdutos();
         this.pageProdutos = res.data;
+        console.log(this.pageProdutos.content[0]);
       } catch (err) {
         console.log(err);
       } finally {

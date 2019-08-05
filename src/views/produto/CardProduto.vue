@@ -2,12 +2,12 @@
   <b-col sm="2">
     <div class="card-produto mb-3">
       <div class="img-produto">
-        <img src="https://www.paodeacucar.com/img/uploads/1/375/583375.png?type=product" />
+        <img :src="produto.imagem ? 'data:image/png;base64,' + produto.imagem : 'https://f.i.uol.com.br/fotografia/2019/03/15/15526795065c8c025270c53_1552679506_4x3_sm.jpg'" />
       </div>
       <div class="desc-produto">
-        <h5>{{produto.nome}}</h5>
+        <h5 style="word-wrap: break-word;">{{produto.nome}}</h5>
         <h4>{{'R$ ' + produto.preco}}</h4>
-        <b-button variant="primary" size="sm">
+        <b-button block variant="primary" size="sm">
           <i class="fas fa-plus-circle mr-2"></i>
           <span>Adicionar</span>
         </b-button>
@@ -47,8 +47,8 @@ export default {
   border-bottom: 1px solid #cac7c7;
 }
 .card-produto img {
-  width: 80px;
-  height: 80px;
+  width: 90px;
+  height: 90px;
 }
 .desc-produto {
   display: flex;
@@ -56,11 +56,13 @@ export default {
   flex-direction: column;
   align-items: center;
 }
+.card-produto h4 {
+  font-size: 1.5rem;
+}
 .card-produto h5 {
   padding: 0;
   margin: 0;
-}
-.card-produto h5 {
   color: #737b84;
+  font-size: 1.1rem;
 }
 </style>

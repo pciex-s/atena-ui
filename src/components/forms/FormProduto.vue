@@ -19,6 +19,16 @@
             <b-form-input v-model="produto.codBarras" size="sm" id="codBarra"></b-form-input>
           </b-form-group>
         </b-col>
+        <b-col>
+          <b-form-group label="Imagem:">
+            <b-form-file size="sm"
+              @change="uploadImage"
+              accept="image/jpeg, image/png"
+              browse-text="Procurar"
+              placeholder="Escolha uma imagem..."
+            ></b-form-file>
+          </b-form-group>
+        </b-col>
         <!-- <b-col>
           <b-form-group label="Categoria: " label-for="categoria">
             <b-form-select size="sm" id="categoria">
@@ -40,19 +50,43 @@
 </template>
 
 <script>
+import Produto from '../../services/produto';
 export default {
   name: "FormProduto",
-  props:{
-      produto: {
-          type: Object,
-          required: true
-      }
+  // props:{
+  //     produto: {
+  //         type: Object,
+  //         required: true
+  //     }
+  // },
+  data(){
+    return {
+      produto: {},
+      imageSrc: null
+    }
   },
   methods: {
-    submitProduto(){
-      this.$emit('submit-produto', this.produto);
+    async submitProduto(){
+      // this.$emit('submit-produto', this.produto);
+      this.produto.imagem = this.imageSrc;
+      await Produto.saveProduto(this.produto);
+      console.log('aa');
+    },
+    uploadImage: function() {    
+      var file = document
+        .querySelector('input[type=file]')
+        .files[0];
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        this.imageSrc = e.target.result             
+      };
+      reader.onerror = function(error) {
+        alert(error);
+      };
+      reader.readAsDataURL(file);      
     }
-  }
+  },
+
 };
 </script>
 

@@ -5,7 +5,7 @@
         <i class="fas fa-box-open mr-1"></i>
         <span>Novo Produto</span>
       </template>
-      <FormProduto :produto="produto" />
+      <FormProduto  />
     </b-card>
   </div>
 </template>
@@ -15,11 +15,11 @@ import FormProduto from '../../components/forms/FormProduto';
 export default {
   name: "CadastroProduto",
   components: {FormProduto},
-  data(){
-    return {
-      produto: {}
-    }
-  }
+  // data(){
+  //   return {
+  //     produto: {}
+  //   }
+  // }
 };
 </script>
 
