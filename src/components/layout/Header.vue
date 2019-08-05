@@ -1,79 +1,101 @@
 <template>
-    <header>
-        <h3><i class="fab fa-windows mr-2"></i>ATENA<span>UI</span></h3>
-        <i class="fas fa-bars ml-5"></i>
-        <nav>
-            <ul class="menu-topo">
-                <li><a href="#">Dashboard</a></li>
-                <li><a href="#">Users</a></li>
-                <li><a href="#">Settings</a></li>
-            </ul>
-        </nav>
-            <img  class="avatar" src="@/assets/avatar.png">
-    </header>
+  <header>
+    <div class="left">
+      <router-link tag="h3" to="/admin/produtos">
+        <i class="fab fa-windows mr-2"></i>ATENA
+        <span>UI</span>
+      </router-link>
+      <i class="fas fa-bars ml-5"></i>
+      <nav>
+        <ul class="menu-topo">
+          <li>
+            <a href="#">Dashboard</a>
+          </li>
+          <li>
+            <a href="#">Users</a>
+          </li>
+          <li>
+            <a href="#">Settings</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div>
+      <img class="avatar" src="@/assets/avatar.png" />
+    </div>
+  </header>
 </template>
 
 <script>
 export default {
-    name: 'Header'
-}
+  name: "Header"
+};
 </script>
 
 <style>
-    header{
-        display:flex;
-        align-items: center;
-        padding:10px 10px 10px 20px;
-        grid-area:header;
-        background-color:#fff;
-    }
 
-    header h3{
-        font-size:1.2rem;
-    }
+header{
+  grid-area: header;
+  background-color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+}
 
-    header h3 span{
-        color: #20a8d8;
-    }
+.left{
+  display: flex;
+}
 
-    .fa-bars{
-        font-size:25px;
-        cursor:pointer;
-        color:grey;
-    }
+header h3 {
+  cursor:pointer;
+  font-size: 1.2rem;
+}
 
-    .fa-bars:hover{
-        color:#000;
-    }
+header h3 span {
+  color: #20a8d8;
+  margin-left:-5px;
+}
 
-    .menu-topo{
-        display:flex;
-        list-style: none;
-        align-items: center;
-        padding:0;
-        margin:0;
-        margin-left:30px;
-    }
+.fa-bars {
+  font-size: 25px;
+  cursor: pointer;
+  color: grey;
+}
 
-    .menu-topo li{
-        padding-right: 20px;
-    }
+.fa-bars:hover {
+  color: #000;
+}
 
-    .menu-topo li a{
-        text-decoration: none;
-        font-size: .895rem;
-        color: grey;
-    }
+.menu-topo {
+  display: flex;
+  list-style: none;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  margin-left: 30px;
+}
 
-    .menu-topo li a:hover{
-        color: black;
-    }
+.menu-topo li {
+  padding-right: 20px;
+}
 
-    .avatar{
-        display:block;
-        width: 40px;
-        height:40px;
-        border-radius: 40px;
-        justify-self: end;
-    }
+.menu-topo li a {
+  text-decoration: none;
+  font-size: 0.895rem;
+  color: grey;
+}
+
+.menu-topo li a:hover {
+  color: black;
+}
+
+.avatar {
+  display: block;
+  width: 40px;
+  height: 40px;
+  border-radius: 40px;
+  justify-self: end;
+}
 </style>

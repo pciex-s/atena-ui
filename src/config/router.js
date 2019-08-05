@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '../views/Home'
+import Produtos from '../views/produto/Produtos';
+import CadastroProduto from '../views/produto/CadastroProduto';
+import Clientes from '../views/cliente/Clientes';
+import CadastroCliente from '../views/cliente/CadastroCliente';
 
 Vue.use(Router)
 
@@ -9,9 +13,39 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/admin',
       name: 'home',
       component: Home,
+      children: [
+        {
+          path: 'produtos',
+          name: 'produtos',
+          component: Produtos,
+        },
+        {
+          path: 'produtos/cadastro',
+          name: 'cadastro-produto',
+          component: CadastroProduto,
+        },
+        {
+          path: 'clientes',
+          name: 'clientes',
+          component: Clientes,
+        },
+        {
+          path: 'clientes/cadastro',
+          name: 'cadastro-cliente',
+          component: CadastroCliente,
+        }
+      ]
+    },
+    {
+      path: '',
+      redirect: '/admin/produtos'
+    },
+    {
+      path: '*',
+      redirect: '/admin'
     } 
   ]
 })
