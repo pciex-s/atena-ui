@@ -5,6 +5,7 @@ import Produtos from '../views/produto/Produtos';
 import CadastroProduto from '../views/produto/CadastroProduto';
 import Clientes from '../views/cliente/Clientes';
 import CadastroCliente from '../views/cliente/CadastroCliente';
+import CadastroVenda from '../views/venda/CadastroVenda'
 
 Vue.use(Router)
 
@@ -36,6 +37,11 @@ export default new Router({
           path: 'clientes/cadastro',
           name: 'cadastro-cliente',
           component: CadastroCliente,
+        },
+        {
+          path: 'venda',
+          name: 'venda',
+          component: CadastroVenda,
         }
       ]
     },

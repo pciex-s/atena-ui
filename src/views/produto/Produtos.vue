@@ -22,7 +22,12 @@
         </b-col>
       </b-row>
 
-      <b-table class="table-sm" :responsive="true" :fields="fields" hover striped :items="pageProdutos.content">
+      <b-row>
+        
+          <!-- <CardProduto v-for="produto in pageProdutos.content" :key="produto.id" :produto="produto" /> -->
+        
+      </b-row>
+      <!-- <b-table class="table-sm" :responsive="true" :fields="fields" hover striped :items="pageProdutos.content">
         <template slot="actions" slot-scope="data">
           <b-button size="sm" variant="warning" class="mr-2" v-b-tooltip.hover title="Alterar">
             <i class="fas fa-pencil-alt"></i>
@@ -31,7 +36,7 @@
             <i class="fas fa-trash"></i>
           </b-button>
         </template>
-      </b-table>
+      </b-table> -->
       <b-pagination size="sm" :total-rows="50" :per-page="10"></b-pagination>
     </div>
   </b-card>
@@ -40,9 +45,10 @@
 <script>
 import Produto from '../../services/produto';
 import Spinner from '../../components/shared/Spinner';
+import CardProduto from '../venda/CardProduto';
 export default {
   name: "Produtos",
-  components: {Spinner},
+  components: {Spinner, CardProduto},
   data() {
     return {
       fields: [
