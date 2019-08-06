@@ -23,7 +23,12 @@
       </b-row>
 
       <b-row>
-        <CardProduto v-for="produto in list" :key="produto.id" :produto="produto" />
+        <CardProduto
+          @add-produto="addProduto"
+          v-for="produto in list"
+          :key="produto.id"
+          :produto="produto"
+        />
       </b-row>
       <b-pagination size="sm" :total-rows="50" :per-page="10"></b-pagination>
     </div>
@@ -47,14 +52,14 @@ export default {
         { key: "actions", label: "Ações" }
       ],
       list: [
-        {id: 1, nome: 'Produto1', preco: '5.00', qtnEstoque: 1},
-        {id: 1, nome: 'Produto1', preco: '5.00', qtnEstoque: 1},
-        {id: 1, nome: 'Produto1', preco: '5.00', qtnEstoque: 1},
-        {id: 1, nome: 'Produto1', preco: '5.00', qtnEstoque: 1},
-        {id: 1, nome: 'Produto1', preco: '5.00', qtnEstoque: 1},
-        {id: 1, nome: 'Produto1', preco: '5.00', qtnEstoque: 1},
-        {id: 1, nome: 'Produto1', preco: '5.00', qtnEstoque: 1},
-        {id: 1, nome: 'Produto1', preco: '5.00', qtnEstoque: 1},
+        { id: 1, nome: "Produto1", preco: "5.00", qtnEstoque: 1 },
+        { id: 2, nome: "Produto1", preco: "5.00", qtnEstoque: 2 },
+        { id: 3, nome: "Produto1", preco: "5.00", qtnEstoque: 3 },
+        { id: 4, nome: "Produto1", preco: "5.00", qtnEstoque: 1 },
+        { id: 5, nome: "Produto1", preco: "5.00", qtnEstoque: 21 },
+        { id: 6, nome: "Produto1", preco: "5.00", qtnEstoque: 12 },
+        { id: 7, nome: "Produto1", preco: "5.00", qtnEstoque: 10 },
+        { id: 8, nome: "Produto1", preco: "5.00", qtnEstoque: 5 }
       ],
       pageProdutos: {},
       loader: false
@@ -75,6 +80,12 @@ export default {
       } finally {
         this.loader = false;
       }
+    },
+    addProduto(produto) {
+      if (produto.qtnEstoque >= 1) {
+        produto.qtnEstoque -= 1;
+      }
+      this.$toasted.global.defaultInfo();
     }
   }
 };

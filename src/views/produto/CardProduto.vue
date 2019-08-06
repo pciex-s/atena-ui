@@ -1,13 +1,14 @@
 <template>
-  <b-col sm="2">
+  <b-col sm="3">
     <div class="card-produto mb-3">
       <div class="img-produto">
         <img :src="produto.imagem ? 'data:image/png;base64,' + produto.imagem : 'https://f.i.uol.com.br/fotografia/2019/03/15/15526795065c8c025270c53_1552679506_4x3_sm.jpg'" />
       </div>
       <div class="desc-produto">
-        <h5 style="word-wrap: break-word;">{{produto.nome}}</h5>
+        <h5 class="produto-nome">{{produto.nome}}</h5>
         <h4>{{'R$ ' + produto.preco}}</h4>
-        <b-button block variant="primary" size="sm">
+        <h5>Qtd. {{produto.qtnEstoque}}</h5>
+        <b-button :disabled="produto.qtnEstoque < 1" @click="addProduto(produto)" block variant="primary" size="sm">
           <i class="fas fa-plus-circle mr-2"></i>
           <span>Adicionar</span>
         </b-button>
@@ -24,6 +25,11 @@ export default {
       type: Object,
       required: true
     }
+  },
+  methods: {
+    addProduto(produto){
+      this.$emit('add-produto', produto);
+    }
   }
 };
 </script>
@@ -34,7 +40,6 @@ export default {
   border: 1px solid #cac7c7;
   box-shadow: 1px 1px 3px grey;
   cursor: pointer;
-  /* max-width: 150px; */
 }
 .card-produto:hover {
   box-shadow: 3px 3px 3px grey;
@@ -57,10 +62,12 @@ export default {
   align-items: center;
 }
 .card-produto h4 {
+  padding: 5px;
+  margin: 0;
   font-size: 1.5rem;
 }
-.card-produto h5 {
-  padding: 0;
+.card-produto h5.produto-nome {
+  padding: 5px;
   margin: 0;
   color: #737b84;
   font-size: 1.1rem;
