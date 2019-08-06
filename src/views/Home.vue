@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" :class="{'hide-menu': !isMenuVisible}">
     <Header />
     <Aside />
     <Content />
@@ -30,10 +30,10 @@ export default {
     "aside footer";
 }
 
-.home.hide-menu {
+/* .home.hide-menu {
   grid-template-areas:
     "header header"
     "content content"
     "footer footer";
-}
+} */
 </style>

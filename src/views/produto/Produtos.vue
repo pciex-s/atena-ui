@@ -39,6 +39,7 @@
 import Produto from "../../services/produto";
 import Spinner from "../../components/shared/Spinner";
 import CardProduto from "./CardProduto";
+import {addItemToCart} from '../../services/cart';
 export default {
   name: "Produtos",
   components: { Spinner, CardProduto },
@@ -85,6 +86,7 @@ export default {
       if (produto.qtnEstoque >= 1) {
         produto.qtnEstoque -= 1;
       }
+      addItemToCart(produto);
       this.$toasted.global.defaultInfo();
     }
   }

@@ -20,8 +20,11 @@
         </ul>
       </nav>
     </div>
-
+    <div class="box-cart">
+      <i class="fas fa-shopping-cart"></i>
+    </div>
     <div>
+      
       <img class="avatar" src="@/assets/avatar.png" />
     </div>
   </header>
@@ -97,5 +100,20 @@ header h3 span {
   height: 40px;
   border-radius: 40px;
   justify-self: end;
+}
+
+.box-cart{
+  background-color: #20a8d8;
+  padding:10px;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+.box-cart:hover i{
+  color: #000;
+}
+
+.box-cart i{
+  color: #fff;
 }
 </style>
