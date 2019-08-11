@@ -2,13 +2,13 @@
   <b-col sm="3">
     <div class="card-produto mb-3">
       <div class="img-produto">
-        <img :src="produto.imagem ? 'data:image/png;base64,' + produto.imagem : 'https://f.i.uol.com.br/fotografia/2019/03/15/15526795065c8c025270c53_1552679506_4x3_sm.jpg'" />
+        <img :src="produto.imagem ? produto.imagem : 'https://superprix.vteximg.com.br/arquivos/ids/178064-600-600/Sprite_2litros.png?v=636721934000000000'" />
       </div>
       <div class="desc-produto">
         <h5 class="produto-nome">{{produto.nome}}</h5>
         <h4>{{'R$ ' + produto.preco}}</h4>
-        <h5>Qtd. {{produto.qtnEstoque}}</h5>
-        <b-button :disabled="produto.qtnEstoque < 1" @click="addProduto(produto)" block variant="primary" size="sm">
+        <h5>Qtd. {{produto.qtd}}</h5>
+        <b-button :disabled="produto.qtd < 1" @click="addProduto(produto)" block variant="primary" size="sm">
           <i class="fas fa-plus-circle mr-2"></i>
           <span>Adicionar</span>
         </b-button>

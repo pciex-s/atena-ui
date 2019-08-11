@@ -20,9 +20,6 @@
         </ul>
       </nav>
     </div>
-    <div class="box-cart">
-      <i class="fas fa-shopping-cart"></i>
-    </div>
     <div>
       
       <img class="avatar" src="@/assets/avatar.png" />
