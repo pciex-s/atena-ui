@@ -48,7 +48,7 @@
                     <i class="fas fa-minus-circle"></i>
                   </b-button>
                 </td>
-                <td>{{'R$ ' + item.preco}}</td>
+                <td>{{item.preco | currency}}</td>
                 <td>
                   <b-dropdown
                     dropright

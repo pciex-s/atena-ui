@@ -1,6 +1,19 @@
 <template>
   <div class="cadastro-produto">
     <b-form @submit.prevent="submitProduto()">
+      <img v-if="url" id="img-produto" :src="url">
+      <b-row>
+        <b-col>
+          <b-form-group label="Imagem:">
+            <input type="file"
+              @change="onFileChange"
+              accept="image/jpeg, image/png"
+              enctype="multipart/form-data"
+              placeholder="Escolha uma imagem..."
+            >
+          </b-form-group>
+        </b-col>
+      </b-row>
       <b-row>
         <b-col>
           <b-form-group label="Nome: " label-for="nome">
@@ -9,7 +22,7 @@
         </b-col>
         <b-col>
           <b-form-group label="Preço (R$): " label-for="preco">
-            <b-form-input v-model="produto.preco" size="sm" id="preco" type="number"></b-form-input>
+            <b-form-input v-model="produto.preco" size="sm" id="preco"></b-form-input>
           </b-form-group>
         </b-col>
       </b-row>
@@ -20,24 +33,10 @@
           </b-form-group>
         </b-col>
         <b-col>
-          <b-form-group label="Imagem:">
-            <b-form-file size="sm"
-              @change="uploadImage"
-              accept="image/jpeg, image/png"
-              browse-text="Procurar"
-              placeholder="Escolha uma imagem..."
-            ></b-form-file>
+          <b-form-group label="Qtd. Estoque">
+            <b-form-input v-model="produto.qntEstoque" size="sm" id="qtdEstoque"></b-form-input>
           </b-form-group>
         </b-col>
-        <!-- <b-col>
-          <b-form-group label="Categoria: " label-for="categoria">
-            <b-form-select size="sm" id="categoria">
-              <option :value="null" disabled>Selecione a categoria</option>
-              <option value="Usado">Cerveja</option>
-              <option value="Novo">Refrigerante</option>
-            </b-form-select>
-          </b-form-group>
-        </b-col> -->
       </b-row>
       <b-button size="sm" class="mr-2" type="submit" variant="success">
         <i class="fa fa-save mr-1"></i>Salvar
@@ -53,37 +52,42 @@
 import Produto from '../../services/produto';
 export default {
   name: "FormProduto",
-  // props:{
-  //     produto: {
-  //         type: Object,
-  //         required: true
-  //     }
-  // },
+  props:{
+      produto: {
+          type: Object,
+          required: true
+      }
+  },
   data(){
     return {
-      produto: {},
-      imageSrc: null
+      image: null,
+      url: null,
+      image: null
     }
   },
   methods: {
     async submitProduto(){
-      // this.$emit('submit-produto', this.produto);
-      this.produto.imagem = this.imageSrc;
-      await Produto.saveProduto(this.produto);
-      console.log('aa');
+      this.$emit('submit-produto', this.produto);
+      // const res = await Produto.saveProduto(this.produto);
+      // if (this.image) {
+      //   const fd = new FormData();
+      //   fd.append('file', this.image);
+      //   try {
+      //     // console.log(res.data.id);
+      //     // console.log(this.image)
+      //     await Produto.uploadImage(this.image, res.data.id);
+      //   } catch (err) {
+      //     console.log(err.response);
+      //     // showError(err);
+      //   } finally {
+      //     // loader.hide();
+      //   }
+      // }
     },
-    uploadImage: function() {    
-      var file = document
-        .querySelector('input[type=file]')
-        .files[0];
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        this.imageSrc = e.target.result             
-      };
-      reader.onerror = function(error) {
-        alert(error);
-      };
-      reader.readAsDataURL(file);      
+    onFileChange(e) {
+      const file = e.target.files[0];
+      this.image = file;
+      this.url = URL.createObjectURL(file);
     }
   },
 
@@ -91,4 +95,13 @@ export default {
 </script>
 
 <style>
+#img-produto{
+  padding:5px;
+  display: block;
+  margin: 0 auto;
+  width: 140px;
+  height: 160px;
+  border: 2px solid #c2c2c2;
+  border-radius: 5px;
+}
 </style>
