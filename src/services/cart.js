@@ -18,17 +18,19 @@ const setCart = (cartJson) => {
 
 const addProduto = (produto) => {
     let cart = getCart();
-    let position = cart.items.findIndex(x => x.produto.id == produto.id);
-    if (position == -1) {
+    let produtoBuscado = cart.items.find(x => x.produto.id == produto.id);
+    if (!produtoBuscado) {
         cart.items.push({ qtd: 1, produto: produto });
+    }else{
+        produtoBuscado.qtd++;
     }
     setCart(cart);
     return cart;
 }
 
-const removeProduto = (produto) => {
+const removeProduto = (item) => {
     let cart = getCart();
-    let position = cart.items.findIndex(x => x.produto.id == produto.id);
+    let position = cart.items.findIndex(x => x.produto.id == item.produto.id);
     if (position != -1) {
         cart.items.splice(position, 1);
     }
@@ -36,9 +38,9 @@ const removeProduto = (produto) => {
     return cart;
 }
 
-const increaseQuantity = (produto) => {
+const increaseQuantity = (item) => {
     let cart = getCart();
-    let position = cart.items.findIndex(x => x.produto.id == produto.id);
+    let position = cart.items.findIndex(x => x.produto.id == item.produto.id);
     if (position != -1) {
         cart.items[position].qtd++;
     }
@@ -46,13 +48,33 @@ const increaseQuantity = (produto) => {
     return cart;
 }
 
-const decreaseQuantity = (produto) => {
+const setQuantity = (item, qtd) => {
     let cart = getCart();
-    let position = cart.items.findIndex(x => x.produto.id == produto.id);
+    let position = cart.items.findIndex(x => x.produto.id == item.produto.id);
+    if (position != -1) {
+        cart.items[position].qtd = qtd;
+    }
+    setCart(cart);
+    return cart;
+}
+
+const setPrice = (item, preco) => {
+    let cart = getCart();
+    let position = cart.items.findIndex(x => x.produto.id == item.produto.id);
+    if (position != -1) {
+        cart.items[position].produto.preco = preco;
+    }
+    setCart(cart);
+    return cart;
+}
+
+const decreaseQuantity = (item) => {
+    let cart = getCart();
+    let position = cart.items.findIndex(x => x.produto.id == item.produto.id);
     if (position != -1) {
         cart.items[position].qtd--;
         if (cart.items[position].qtd < 1) {
-            cart = removeProduto(produto);
+            cart = removeProduto(item);
         }
     }
     setCart(cart);
@@ -68,5 +90,5 @@ const total = () => {
     return sum;
 }
 
-export { getCart, addProduto, removeProduto, increaseQuantity, decreaseQuantity, total };
+export { getCart, addProduto, removeProduto, increaseQuantity, decreaseQuantity, total, setQuantity, setPrice };
 

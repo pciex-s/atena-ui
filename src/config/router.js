@@ -5,6 +5,7 @@ import Produtos from '../views/produto/Produtos';
 import CadastroProduto from '../views/produto/CadastroProduto';
 import Clientes from '../views/cliente/Clientes';
 import CadastroCliente from '../views/cliente/CadastroCliente';
+import EdicaoProduto from '../views/produto/EdicaoProduto';
 
 Vue.use(Router)
 
@@ -26,6 +27,11 @@ export default new Router({
           path: 'produtos/cadastro',
           name: 'cadastro-produto',
           component: CadastroProduto,
+        },
+        {
+          path: 'produtos/:id',
+          name: 'edicao-produto',
+          component: EdicaoProduto,
         },
         {
           path: 'clientes',
