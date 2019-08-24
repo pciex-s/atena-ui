@@ -11,7 +11,7 @@
           <router-link class="btn btn-dark btn-sm mr-2" to="/admin/produtos/cadastro">
             <i class="fas fa-plus-circle mr-1"></i>Novo Produto
           </router-link>
-          <b-button @click="$bvModal.show('modal-cart')" variant="success" size="sm">
+          <b-button v-if="cart.items.length > 0" @click="getCart();$bvModal.show('modal-cart');" variant="success" size="sm">
             <i class="fas fa-shopping-cart mr-1"></i>Finalizar venda
           </b-button>
         </b-col>
@@ -37,7 +37,7 @@
               <b-button size="sm" @click="selecionaProduto(data.item);$bvModal.show('modal-produto-detail')"  variant="primary" class="mr-2" v-b-tooltip.hover title="Visualizar">
                 <i class="fas fa-search-plus"></i>
               </b-button>
-              <b-button size="sm" variant="dark" class="mr-2" v-b-tooltip.hover title="Adicionar">
+              <b-button @click="addProdutoToCart(data.item)"  size="sm" variant="dark" class="mr-2" v-b-tooltip.hover title="Adicionar">
                 <i class="fas fa-plus-circle"></i>
               </b-button>
               <b-button @click="navigate(data.item.id)" size="sm" variant="warning" class="mr-2" v-b-tooltip.hover title="Alterar">
@@ -58,13 +58,14 @@
 <script>
 import Produto from "../../services/produto";
 import Spinner from "../../components/shared/Spinner";
-import CardProduto from "./CardProduto";
-import {addProduto} from '../../services/cart';
+import {addProduto, getCart} from '../../services/cart';
 import Cart from './Cart';
 import ProdutoDetail from './ProdutoDetail';
+import {mapGetters} from 'vuex';
 export default {
   name: "Produtos",
-  components: { Spinner, CardProduto, Cart, ProdutoDetail },
+  components: { Spinner, Cart, ProdutoDetail },
+  computed: mapGetters(['cart']),
   data() {
     return {
       page: 1,
@@ -101,10 +102,12 @@ export default {
       }
     },
     addProdutoToCart(produto) {
-      if (produto.qtd >= 1) {
-        produto.qtd -= 1;
+      
+      if (produto.qntEstoque >= 1) {
+        produto.qntEstoque -= 1;
       }
       addProduto(produto);
+      this.$store.dispatch('SET_CART');
       this.$toasted.global.defaultInfo();
     },
     async removeProduto(id){
@@ -141,8 +144,10 @@ export default {
             })
       },
       selecionaProduto(produto){
-        console.log(produto)
         this.produtoSelecionado = produto;
+      },
+      getCart(){
+        this.$store.dispatch('SET_CART');
       }
     }
 };
